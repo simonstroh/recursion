@@ -1,8 +1,3 @@
-// this is what you would do if you liked things to be easy:
-// var stringifyJSON = JSON.stringify;
-
-// but you don't so you're going to write it from scratch:
-
 var stringifyJSON = function(obj) {
   if (Array.isArray(obj)) {
     var specialArray = []
@@ -34,51 +29,7 @@ var stringifyJSON = function(obj) {
               var stringHere = '[]'
               concatArray.push(stringHere)
             } else {
-              var deeperArray = thisArray[t]
-              var deepConcatArray = []
-              for (x = 0; x < deeperArray.length; x++) {
-                if (typeof deeperArray[x] === "string") {
-                  var thisOne = '"' + deeperArray[x] + '"'
-                  deepConcatArray.push(thisOne)
-                } else if (typeof deeperArray[x] === "boolean" || typeof deeperArray[x] === "number") {
-                  var thisOne = deeperArray[x]
-                  deepConcatArray.push(thisOne)
-                } else if (typeof deeperArray[x] === "undefined") {
-                  var thisOne = 'null'
-                  deepConcatArray.push(thisOne)
-                } else if (Array.isArray(deeperArray[x])) {
-                  if (deeperArray[x].length === 0) {
-                    var thisOne = '[]'
-                    deepConcatArray.push(thisOne)
-                  } else {
-                    var deepestArray = deeperArray[x]
-                    var deepestConcatArray = []
-                    for (y = 0; y < deepestArray.length; y++) {
-                      if (typeof deepestArray[y] === "string") {
-                        var thisHere = '"' + deepestArray[y] + '"'
-                        deepestConcatArray.push(thisHere)
-                      } else if (typeof deepestArray[y] === "boolean" || typeof deepestArray[y] === "number") {
-                        var thisHere = deeperArray[x]
-                        deepestConcatArray.push(thisHere)
-                      } else if (typeof deepestArray[y] === "undefined") {
-                        var thisHere = 'null'
-                        deepestConcatArray.push(thisHere)
-                      } else if (Array.isArray(deepestArray[y])) {
-                        if (deepestArray[y].length === 0) {
-                          var thisHere = '[]'
-                          deepestConcatArray.push(thisHere)
-                        } else {
-
-                        }
-                      }
-                    }
-                    var returningStringLast = '[' + deepestConcatArray.join(',') + ']'
-                    deepConcatArray.push(returningStringLast)
-                  }
-                }
-              }
-              var returningString = '[' + deepConcatArray.join(',') + ']'
-              concatArray.push(returningString)
+              concatArray.push(stringifyJSON(thisArray[t]))
             }
           }
         }
