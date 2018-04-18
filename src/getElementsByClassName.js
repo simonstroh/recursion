@@ -9,6 +9,9 @@ var getElementsByClassName = function(className
   var entireElement = document.body
   var children = entireElement.children
   var classArray = []
+  if (entireElement.classList.contains(className)) {
+    classArray.push(entireElement)
+  }
   for (var x = 0; x < children.length; x++) {
     if (children[x].classList.contains(className)) {
       classArray.push(children[x])
