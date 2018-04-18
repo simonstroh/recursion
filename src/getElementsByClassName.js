@@ -6,12 +6,13 @@
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className
 ) {
-  var documentElements = document.body.childNodes
-  var newArray = []
-  for (r = 0; r < documentElements.length; r++) {
-    if (documentElements[r].contains(className)) {
-      newArray.push(documentElements[r])
+  var entireElement = document.body
+  var children = entireElement.children
+  var classArray = []
+  for (var x = 0; x < children.length; x++) {
+    if (children[x].classList.contains(className)) {
+      classArray.push(children[x])
     }
   }
-  return newArray
+  return classArray
 };
