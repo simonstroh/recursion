@@ -4,18 +4,18 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-) {
-  var entireElement = document.body
-  var children = entireElement.children
-  var classArray = []
-  if (entireElement.classList.contains(className)) {
-    classArray.push(entireElement)
-  }
-  for (var x = 0; x < children.length; x++) {
-    if (children[x].classList.contains(className)) {
-      classArray.push(children[x])
+var getElementsByClassName = function(className) {
+  var newArray = []
+  function elementsRecursive(elem) {
+    if (elem.classList && elem.classList.contains(className)) {
+      newArray.push(elem)
+    }
+    if (elem.childNodes) {
+      elem.childNodes.forEach(function(elementy) {
+        elementsRecursive(elementy)
+      })
     }
   }
-  return classArray
-};
+  elementsRecursive(document.body)
+  return newArray
+}
